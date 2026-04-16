@@ -29,4 +29,25 @@ public class Console {
     @JoinColumn(name = "companie_id", nullable = false)
     private Companie companie;
 
+    @Builder.Default
+    @ManyToMany(mappedBy = "consoles")
+    private Set<Videogame> videogames = new HashSet<>();
+
+    //Define cuando 2 objetos se consideran iguales
+    @Override
+    public boolean equals(Object o){
+        if(this == o) return true;
+
+        if(!(o instanceof Console)) return false;
+
+        Console other = (Console) o;
+        return id != null && id.equals(other.getId());
+    }
+
+    //Devuelve un numero entero que representa al objeto y se usa como estructura como hashset
+
+    @Override
+    public int hashCode(){
+        return 31;
+    }
 }
